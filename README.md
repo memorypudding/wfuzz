@@ -36,6 +36,15 @@ cd wfuzz
 pipx install .
 ```
 
+```
+If you have this error:
+ModuleNotFoundError: No module named 'pkg_resources'
+
+Run this: 
+pipx runpip wfuzz install --upgrade setuptools
+```
+
+
 To run Wfuzz from a docker image, run:
 
 ```

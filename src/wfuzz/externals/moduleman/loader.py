@@ -1,6 +1,6 @@
 import inspect
 import logging
-import imp
+import importlib as imp
 import os.path
 
 

@@ -28,10 +28,12 @@ It was created to facilitate the task in web applications assessments, it's a to
 
 ## Installation 
 
-To install WFuzz, simply use pip:
+To install WFuzz, simply use pipx:
 
 ```
-pip install wfuzz
+git clone http://github.com/memorypudding/wfuzz
+cd wfuzz
+pipx install .
 ```
 
 To run Wfuzz from a docker image, run:

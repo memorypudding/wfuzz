@@ -6,7 +6,6 @@ from setuptools import setup, find_packages
 with open("README.md", "rb") as f:
     long_descr = f.read().decode("utf-8")
 
-
 version = re.search(
     r'^__version__\s*=\s*"(.*)"',
     open('src/wfuzz/__init__.py').read(),
@@ -21,7 +20,7 @@ dev_requires = [
     'mock',
     'coverage',
     'codecov',
-    'netaddr',  # tests/api/test_payload.py uses ipranges payload
+    'netaddr',
     'pip-tools',
     'flake8==3.8.3',
     'black==19.10b0;python_version>"3.5"',
@@ -31,23 +30,21 @@ dev_requires = [
 install_requires = [
     'pycurl',
     'pyparsing<2.4.2;python_version<="3.4"',
-    'pyparsing>=2.4*;python_version>="3.5"',
+    'pyparsing>=2.4.2;python_version>="3.5"',  # Fixed version specifier
     'six',
     'configparser;python_version<"3.5"',
     'chardet',
 ]
 
-
 if sys.platform.startswith("win"):
-    install_requires += ["colorama>=0.4.0"]
-
+    install_requires.append("colorama>=0.4.0")
 
 try:
     os.symlink('../../docs/user/advanced.rst', 'src/wfuzz/advanced.rst')
     setup(
         name="wfuzz",
         packages=find_packages(where='src'),
-        package_dir={'wfuzz': 'src/wfuzz'},
+        package_dir={'': 'src'},
         include_package_data=True,
         package_data={'wfuzz': ['*.rst']},
         entry_points={
@@ -74,7 +71,7 @@ try:
             'docs': docs_requires,
         },
         python_requires=">=2.6",
-        classifiers=(
+        classifiers=[
             'Development Status :: 4 - Beta',
             'Natural Language :: English',
             'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
@@ -85,7 +82,8 @@ try:
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8',
-        ),
+        ],
     )
 finally:
-    os.unlink('src/wfuzz/advanced.rst')
+    if os.path.islink('src/wfuzz/advanced.rst'):
+        os.unlink('src/wfuzz/advanced.rst')
